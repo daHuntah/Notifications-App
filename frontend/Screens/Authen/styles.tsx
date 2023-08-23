@@ -3,9 +3,9 @@ import {StyleSheet} from 'react-native';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: 'white',
   },
   logoContainer: {
-    backgroundColor: 'white',
     flex: 1,
     width: '100%',
     height: '100%',
@@ -49,6 +49,15 @@ const styles = StyleSheet.create({
   forgotPasstext: {
     fontWeight: 'bold',
     fontSize: 16,
+  },
+  RegNav: {
+    flexDirection: 'row',
+    marginTop: 20,
+    alignSelf: 'center',
+  },
+  RegNavtext: {
+    fontSize: 15,
+    fontWeight: '600',
   },
 });
 

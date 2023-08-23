@@ -1,10 +1,10 @@
 import React from 'react';
-import {Image, SafeAreaView, Text, TextInput, View} from 'react-native';
+import {Image, SafeAreaView, Text, View} from 'react-native';
 import styles from './styles';
 import CustomTextInput from '../../Components/TextInput';
 import Button from '../../Components/Button';
 
-function Login({navigation}) {
+function Register({navigation}) {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.logoContainer}>
@@ -14,28 +14,29 @@ function Login({navigation}) {
           resizeMode="contain"
         />
       </View>
-
       <View style={styles.formContainer}>
         <CustomTextInput placeholder="Username" styles={styles.textInput} />
-        <CustomTextInput placeholder="Password" styles={styles.textInput} secureTextEntry={true}/>
-        <Button
-          content="Quên mật khẩu ?"
-          btnstyle={styles.forgotPass}
-          btntextstyle={styles.forgotPasstext}
+        <CustomTextInput placeholder="Email" styles={styles.textInput} />
+        <CustomTextInput
+          placeholder="Số điện thoại"
+          styles={styles.textInput}
+        />
+        <CustomTextInput
+          placeholder="Password"
+          styles={styles.textInput}
+          secureTextEntry={true}
         />
         <Button
-          content="ĐĂNG NHẬP"
+          content="ĐĂNG KÍ"
           btnstyle={styles.btnstyle}
           btntextstyle={styles.btntextstyle}
         />
         <View style={styles.RegNav}>
-          <Text style={{fontSize: 15}}>Bạn chưa có tài khoản ?</Text>
+          <Text style={{fontSize: 15}}>Bạn đã có tài khoản ?</Text>
           <Button
-            content=" Đăng kí"
+            content=" Đăng nhập"
             btntextstyle={styles.RegNavtext}
-            onPress={() => {
-              navigation.navigate('Register');
-            }}
+            onPress={() => navigation.navigate('Login')}
           />
         </View>
       </View>
@@ -43,4 +44,4 @@ function Login({navigation}) {
   );
 }
 
-export default Login;
+export default Register;
