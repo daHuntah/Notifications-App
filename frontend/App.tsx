@@ -3,6 +3,7 @@ import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
 import Login from './Screens/Authen/Login';
 import Register from './Screens/Authen/Register';
+import NotifiScreen from './Screens/Home/NotifiScreen';
 
 function App(): JSX.Element {
   const Stack = createStackNavigator();
@@ -17,6 +18,11 @@ function App(): JSX.Element {
         <Stack.Screen
           name="Register"
           component={Register}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="NotifiScreen"
+          component={NotifiScreen}
           options={{headerShown: false}}
         />
       </Stack.Navigator>

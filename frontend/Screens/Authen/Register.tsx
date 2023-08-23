@@ -16,7 +16,7 @@ function Register({navigation}) {
       </View>
       <View style={styles.formContainer}>
         <CustomTextInput placeholder="Username" styles={styles.textInput} />
-        <CustomTextInput placeholder="Email" styles={styles.textInput} />
+        <CustomTextInput placeholder="Email" styles={styles.textInput} keyboardType='email-address'/>
         <CustomTextInput
           placeholder="Số điện thoại"
           styles={styles.textInput}
