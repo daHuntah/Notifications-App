@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
   btntextstyle: {
     color: 'white',
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: '400',
   },
   forgotPass: {
     alignSelf: 'flex-end',
@@ -57,7 +57,11 @@ const styles = StyleSheet.create({
   },
   RegNavtext: {
     fontSize: 15,
-    fontWeight: '600',
+    fontWeight: 'bold',
+  },
+  alert: {
+    color: 'red',
+    marginLeft: 15,
   },
 });
 

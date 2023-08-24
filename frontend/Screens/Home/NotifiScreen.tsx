@@ -1,8 +1,8 @@
-import React from "react";
+import React from 'react';
+import {Text} from 'react-native';
 
 function NotifiScreen() {
-    return(
-        )
+  return <Text>Amenn</Text>;
 }
 
 export default NotifiScreen;
