@@ -21,30 +21,22 @@ function Register({navigation}) {
       setalerts('Vui lòng nhập số điẹn thoại');
     }
 
-    let urlReg = 'https://1c08-42-115-45-164.ngrok-free.app/auth/register';
-
     try {
-      const response = await fetch(urlReg, {
+      const response = await fetch('http://localhost:3000/users/register', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({
-          username: username,
-          password: password,
-          email: email,
-          phoneNumber: phonenumber,
-        }),
+        body: JSON.stringify({username, password, email, phonenumber}),
       });
 
-      const responseData = await response.json();
-      console.log(responseData);
+      const data = await response.json();
 
-      if (responseData.status === 409) {
-        setalerts('Username đã tồn tại');
-      } else if (responseData.status === 201) {
-        setalerts('Thành công');
+      if (response.ok) {
+        setalerts(data.message);
         navigation.navigate('Login');
+      } else {
+        setalerts(data.message);
       }
     } catch (error) {
       console.log(error);
@@ -77,10 +69,7 @@ function Register({navigation}) {
           placeholder="Số điện thoại"
           styles={styles.textInput}
           keyboardType="numeric"
-          onChangeText={txt => {
-            const numericText = txt.replace(/[^0-9]/g, '');
-            setphonenumber(numericText);
-          }}
+          onChangeText={txt => setphonenumber(txt)}
         />
         <CustomTextInput
           placeholder="Password"
