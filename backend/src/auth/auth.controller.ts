@@ -1,6 +1,6 @@
 import { Controller, Post, Body } from '@nestjs/common';
 import { AuthService } from './auth.service';
-
+import { UnauthorizedException } from '@nestjs/common';
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService) {}
@@ -27,5 +27,25 @@ export class AuthController {
       status: result.status,
       message: result.message,
     };
+  }
+  @Post('login')
+  async login(@Body() body: { username: string; password: string }) {
+    try {
+      const { username, password } = body;
+      const result = await this.authService.login(username, password);
+      return {
+        statusCode: 200,
+        message: 'Login successful',
+        data: result, // Trả về dữ liệu phản hồi từ AuthService
+      };
+    } catch (error) {
+      if (error instanceof UnauthorizedException) {
+        return {
+          statusCode: 401,
+          message: 'Invalid credentials',
+        };
+      }
+      throw error;
+    }
   }
 }
