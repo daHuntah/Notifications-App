@@ -41,7 +41,7 @@ export class AuthController {
     } catch (error) {
       if (error instanceof UnauthorizedException) {
         return {
-          statusCode: 2,
+          status: 2,
           message: 'Invalid credentials',
         };
       }
