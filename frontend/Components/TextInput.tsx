@@ -1,20 +1,15 @@
 import React from 'react';
 import {TextInput} from 'react-native';
 
-const CustomTextInput = ({
-  placeholder,
-  styles,
-  secureTextEntry,
-  keyboardType,
-  onChangeText,
-}) => {
+const CustomTextInput = props => {
   return (
     <TextInput
-      style={styles}
-      placeholder={placeholder}
-      secureTextEntry={secureTextEntry}
-      keyboardType={keyboardType}
-      onChangeText={onChangeText}
+      style={props.styles}
+      placeholder={props.placeholder}
+      secureTextEntry={props.secureTextEntry}
+      keyboardType={props.keyboardType}
+      onChangeText={props.onChangeText}
+      value={props.value}
     />
   );
 };

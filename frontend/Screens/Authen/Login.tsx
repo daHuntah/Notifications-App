@@ -1,19 +1,52 @@
-import React, {useState} from 'react';
-import {Image, SafeAreaView, Text, TextInput, View} from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {Image, SafeAreaView, Text, View} from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import styles from './styles';
 import CustomTextInput from '../../Components/TextInput';
 import Button from '../../Components/Button';
 
-function Login({navigation}) {
+function Login({navigation, route}) {
   const [alerts, setalerts] = useState('');
   const [username, setusername] = useState('');
   const [password, setpassword] = useState('');
 
-  const doLogin = ({navigation}) => {
+  useEffect(() => {
+    if (route.params && route.params.username) {
+      setusername(route.params.username);
+    }
+  }, [route.params]);
+
+  const doLogin = async () => {
     if (username === '') {
       setalerts('Vui lòng nhập username');
+      return;
     } else if (password === '') {
       setalerts('Vui lòng nhập mật khẩu');
+      return;
+    }
+
+    let urlLogin = 'https://c7f4-42-115-45-164.ngrok-free.app/auth/login';
+
+    try {
+      const response = await fetch(urlLogin, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({username, password}),
+      });
+
+      const responseData = await response.json();
+      console.log(responseData);
+
+      if (responseData.status === 1) {
+        await AsyncStorage.setItem('token', responseData.data.accessToken);
+        navigation.navigate('NotifiScreen');
+      } else if (responseData.status === 2) {
+        setalerts('Tài khoản hoặc mật khẩu không chính xác');
+      }
+    } catch (error) {
+      console.log(error);
     }
   };
   return (
@@ -31,13 +64,14 @@ function Login({navigation}) {
         <CustomTextInput
           placeholder="Username"
           styles={styles.textInput}
-          onChangeText={txt => setusername(txt)}
+          onChangeText={setusername}
+          value={username}
         />
         <CustomTextInput
           placeholder="Password"
           styles={styles.textInput}
           secureTextEntry={true}
-          onChangeText={txt => setpassword(txt)}
+          onChangeText={setpassword}
         />
         <Button
           content="Quên mật khẩu ?"

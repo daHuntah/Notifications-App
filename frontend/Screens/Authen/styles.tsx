@@ -63,6 +63,22 @@ const styles = StyleSheet.create({
     color: 'red',
     marginLeft: 15,
   },
+  modalContainer: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Tạo hiệu ứng mờ nền
+  },
+  loadingContainer: {
+    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+    borderRadius: 10,
+    padding: 20,
+    alignItems: 'center',
+  },
+  loadingText: {
+    marginTop: 10,
+    color: 'white',
+  },
 });
 
 export default styles;
