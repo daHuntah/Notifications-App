@@ -34,14 +34,14 @@ export class AuthController {
       const { username, password } = body;
       const result = await this.authService.login(username, password);
       return {
-        statusCode: 200,
+        statusCode: 1,
         message: 'Login successful',
         data: result, // Trả về dữ liệu phản hồi từ AuthService
       };
     } catch (error) {
       if (error instanceof UnauthorizedException) {
         return {
-          statusCode: 401,
+          statusCode: 2,
           message: 'Invalid credentials',
         };
       }

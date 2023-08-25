@@ -17,7 +17,7 @@ export class AuthService {
   ): Promise<{ status: number; message: string }> {
     const existingUser = await this.userModel.findOne({ username });
     if (existingUser) {
-      return { status: 409, message: 'Username already exists' };
+      return { status: 2, message: 'Username already exists' };
     } else {
       const hashedPassword = await bcrypt.hash(password, 10);
       const newUser = new this.userModel({
@@ -29,11 +29,11 @@ export class AuthService {
 
       try {
         await newUser.save();
-        return { status: 201, message: 'User registered successfully' };
+        return { status: 1, message: 'User registered successfully' };
       } catch (error) {
         console.error(error);
         return {
-          status: 500,
+          status: 0,
           message: 'An error occurred while registering user',
         };
       }
@@ -55,7 +55,7 @@ export class AuthService {
   
     const payload = { username: user.username, sub: user._id };
     return {
-      accessToken: this.jwtService.sign(payload), // Sử dụng accessToken thay cho access_token
+      accessToken: this.jwtService.sign(payload), 
     };
   }
 }

@@ -11,8 +11,8 @@ import { JwtModule } from '@nestjs/jwt';
     MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
     PassportModule,
     JwtModule.register({
-      secret: 'your_secret_key', // Thay bằng secret key của bạn
-      signOptions: { expiresIn: '1h' }, // Tuỳ chọn thời hạn của token
+      secret: 'your_secret_key',
+      signOptions: { expiresIn: '1h' },
     }),
   ],
   providers: [AuthService],
