@@ -34,7 +34,7 @@ export class AuthController {
       const { username, password } = body;
       const result = await this.authService.login(username, password);
       return {
-        statusCode: 1,
+        status: 1,
         message: 'Login successful',
         data: result, // Trả về dữ liệu phản hồi từ AuthService
       };
