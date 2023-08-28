@@ -1,8 +1,8 @@
 import React from 'react';
 import {Text} from 'react-native';
 
-function NotifiScreen() {
+function NotificationHistoryTab() {
   return <Text>Amenn</Text>;
 }
 
-export default NotifiScreen;
+export default NotificationHistoryTab;

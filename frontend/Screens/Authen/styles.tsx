@@ -3,7 +3,7 @@ import {StyleSheet} from 'react-native';
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'white',
+    backgroundColor: '#7091F5',
   },
   logoContainer: {
     flex: 1,
@@ -12,8 +12,29 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   logo: {
-    width: 330,
+    width: 270,
     height: '100%',
+  },
+  card: {
+    backgroundColor: 'white',
+    width: '96%',
+    height: 400,
+    justifyContent: 'center',
+    alignSelf: 'center',
+    borderRadius: 15,
+    padding: 5,
+  },
+  card2: {
+    backgroundColor: 'white',
+    width: '96%',
+    height: 550,
+    justifyContent: 'center',
+    alignSelf: 'center',
+    borderRadius: 15,
+    padding: 5,
+  },
+  label: {
+    marginLeft: 15,
   },
   formContainer: {
     alignSelf: 'center',
@@ -21,15 +42,22 @@ const styles = StyleSheet.create({
     width: 370,
     height: '100%',
   },
+  formContainerReg: {
+    alignSelf: 'center',
+    flex: 3,
+    width: 370,
+    height: '100%',
+  },
   textInput: {
     margin: 15,
+    marginTop: 6,
     borderRadius: 10,
     backgroundColor: 'lightgray',
     paddingLeft: 10,
   },
   btnstyle: {
-    backgroundColor: 'blue',
-    width: 200,
+    backgroundColor: '#793FDF',
+    width: 280,
     height: 50,
     borderRadius: 10,
     margin: 10,
@@ -44,11 +72,11 @@ const styles = StyleSheet.create({
   },
   forgotPass: {
     alignSelf: 'flex-end',
-    margin: 15,
+    margin: 10,
   },
   forgotPasstext: {
     fontWeight: 'bold',
-    fontSize: 16,
+    fontSize: 15,
   },
   RegNav: {
     flexDirection: 'row',
@@ -61,23 +89,14 @@ const styles = StyleSheet.create({
   },
   alert: {
     color: 'red',
-    marginLeft: 15,
+    marginRight: 15,
+    alignSelf: 'flex-end',
   },
-  modalContainer: {
+  modalBackground: {
     flex: 1,
+    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Màu đen trong suốt với độ trong suốt là 0.5
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Tạo hiệu ứng mờ nền
-  },
-  loadingContainer: {
-    backgroundColor: 'rgba(0, 0, 0, 0.7)',
-    borderRadius: 10,
-    padding: 20,
-    alignItems: 'center',
-  },
-  loadingText: {
-    marginTop: 10,
-    color: 'white',
   },
 });
 
