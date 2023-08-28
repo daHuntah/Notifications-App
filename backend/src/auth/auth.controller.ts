@@ -1,9 +1,10 @@
 import { Controller, Post, Body } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { UnauthorizedException } from '@nestjs/common';
+import { OtpService } from './otp.service';
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(private readonly authService: AuthService, private readonly otpService: OtpService,) {}
 
   @Post('register')
   async register(
@@ -47,5 +48,15 @@ export class AuthController {
       }
       throw error;
     }
+  }
+  @Post('send')
+  async sendOtp(@Body() body: { phoneNumber: string }) {
+    const { phoneNumber } = body;
+    const otpCode = await this.otpService.generateOtpCode(6); // Độ dài mã OTP
+    await this.otpService.sendOtpToPhone(phoneNumber, otpCode);
+
+    return {
+      message: 'OTP sent successfully',
+    };
   }
 }
