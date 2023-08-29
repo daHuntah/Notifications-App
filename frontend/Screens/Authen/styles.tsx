@@ -2,101 +2,67 @@ import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
-    backgroundColor: '#7091F5',
-  },
-  logoContainer: {
-    flex: 1,
-    width: '100%',
-    height: '100%',
-    alignItems: 'center',
+    height: 10000,
+    backgroundColor: '#7297d4',
   },
   logo: {
-    width: 270,
-    height: '100%',
-  },
-  card: {
-    backgroundColor: 'white',
-    width: '96%',
-    height: 400,
-    justifyContent: 'center',
+    width: 300,
+    height: 150,
     alignSelf: 'center',
-    borderRadius: 15,
-    padding: 5,
+    marginTop: 80,
+    marginBottom: 90,
   },
-  card2: {
-    backgroundColor: 'white',
-    width: '96%',
-    height: 550,
-    justifyContent: 'center',
+  logo2: {
+    width: 300,
+    height: 150,
     alignSelf: 'center',
-    borderRadius: 15,
-    padding: 5,
-  },
-  label: {
-    marginLeft: 15,
+    marginTop: 40,
+    marginBottom: 30,
   },
   formContainer: {
-    alignSelf: 'center',
-    flex: 2,
-    width: 370,
-    height: '100%',
+    height: 1000,
+    backgroundColor: '#fbfcfd',
+    borderTopRightRadius: 35,
+    borderTopLeftRadius: 35,
+    padding: 40,
   },
-  formContainerReg: {
-    alignSelf: 'center',
-    flex: 3,
-    width: 370,
-    height: '100%',
+  title: {
+    fontWeight: 'bold',
+    color: '#342e9d',
+    fontSize: 20,
+  },
+  inputContainer: {
+    marginTop: 40,
+  },
+  inputContainer2: {
+    marginTop: 30,
+  },
+  label: {
+    color: '#adb5c6',
   },
   textInput: {
-    margin: 15,
-    marginTop: 6,
-    borderRadius: 10,
-    backgroundColor: 'lightgray',
-    paddingLeft: 10,
+    marginBottom: 10,
+    borderBottomWidth: 1,
+    borderBottomColor: '#342e9d',
   },
-  btnstyle: {
-    backgroundColor: '#793FDF',
-    width: 280,
+  btnLogin: {
+    width: 300,
     height: 50,
-    borderRadius: 10,
-    margin: 10,
-    alignSelf: 'center',
-    alignItems: 'center',
+    backgroundColor: '#342e9d',
+    marginTop: 40,
+    marginBottom: 20,
+    borderRadius: 20,
     justifyContent: 'center',
+    alignItems: 'center',
+    elevation: 6,
+    shadowColor: '#7297d4',
+    shadowOffset: {width: 0, height: 4},
+    shadowOpacity: 0.5,
+    shadowRadius: 6,
   },
-  btntextstyle: {
-    color: 'white',
+  btnLogintext: {
     fontSize: 18,
-    fontWeight: '400',
-  },
-  forgotPass: {
-    alignSelf: 'flex-end',
-    margin: 10,
-  },
-  forgotPasstext: {
-    fontWeight: 'bold',
-    fontSize: 15,
-  },
-  RegNav: {
-    flexDirection: 'row',
-    marginTop: 20,
-    alignSelf: 'center',
-  },
-  RegNavtext: {
-    fontSize: 15,
-    fontWeight: 'bold',
-  },
-  alert: {
-    color: 'red',
-    marginRight: 15,
-    alignSelf: 'flex-end',
-  },
-  modalBackground: {
-    flex: 1,
-    backgroundColor: 'rgba(0, 0, 0, 0.5)', // Màu đen trong suốt với độ trong suốt là 0.5
-    justifyContent: 'center',
-    alignItems: 'center',
+    color: '#fbfcfd',
   },
 });
 

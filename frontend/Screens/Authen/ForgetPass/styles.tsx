@@ -4,10 +4,10 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     justifyContent: 'center',
-    backgroundColor: '#7091F5',
+    backgroundColor: 'white',
   },
   card: {
-    backgroundColor: 'white',
+    backgroundColor: '#C5DFF8',
     width: '90%',
     height: 400,
     justifyContent: 'center',
@@ -36,11 +36,11 @@ const styles = StyleSheet.create({
   textIP: {
     margin: 15,
     borderRadius: 10,
-    backgroundColor: 'lightgray',
+    backgroundColor: 'white',
     paddingLeft: 10,
   },
   btn: {
-    backgroundColor: '#793FDF',
+    backgroundColor: '#4A55A2',
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'center',
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     margin: 5,
   },
   btn2: {
-    backgroundColor: '#793FDF',
+    backgroundColor: '#4A55A2',
     justifyContent: 'center',
     alignItems: 'center',
     alignSelf: 'center',

@@ -7,39 +7,50 @@ import {
   ActivityIndicator,
   Modal,
   KeyboardAvoidingView,
+  ScrollView,
 } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import styles from './styles';
 import CustomTextInput from '../../Components/TextInput';
 import Button from '../../Components/Button';
+import CustomDialog from '../../Components/CustomDialog';
 
 function Login({navigation, route}) {
   const [alerts, setalerts] = useState('');
   const [username, setusername] = useState('');
   const [password, setpassword] = useState('');
   const [isloading, setisloading] = useState(false);
+  const [isSpinning, setisSpinning] = useState(false);
 
   const closeModal = () => {
     setisloading(false);
+    handleSpinnings();
+  };
+
+  const handleSpinnings = () => {
+    if (isloading) {
+      setisSpinning(false);
+    } else if (!isloading) {
+      setisSpinning(true);
+    }
   };
 
   const doLogin = async () => {
-    setisloading(true);
-
     if (username === '') {
       setalerts('Vui lòng nhập username');
-      setisloading(false);
+      setisloading(true);
       return;
     } else if (password === '') {
       setalerts('Vui lòng nhập mật khẩu');
-      setisloading(false);
+      setisloading(true);
       return;
     }
 
     let urlLogin =
-      'https://8003-2001-ee0-41c1-4179-5d5b-d160-2abb-240d.ngrok-free.app/auth/login';
+      'https://848c-2001-ee0-41c1-4f53-fcc1-7d33-e7a5-b7f2.ngrok-free.app/auth/login';
 
     try {
+      handleSpinnings();
       const response = await fetch(urlLogin, {
         method: 'POST',
         headers: {
@@ -56,12 +67,12 @@ function Login({navigation, route}) {
         navigation.navigate('Home');
       } else if (responseData.status === 2) {
         setalerts('Tài khoản hoặc mật khẩu không chính xác');
+        setisloading(true);
       }
     } catch (error) {
       console.log(error);
       setalerts('Vui lòng thử lại sau');
-    } finally {
-      setisloading(false);
+      setisloading(true);
     }
   };
 
@@ -73,66 +84,58 @@ function Login({navigation, route}) {
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.logoContainer}>
-        <Image
-          style={styles.logo}
-          source={require('../../Assets/Image/logoNEWNCSC.png')}
-          resizeMode="contain"
-        />
-      </View>
-
-      <View style={styles.formContainer}>
-        <KeyboardAvoidingView style={styles.card}>
-          <Text style={styles.alert}>{alerts}</Text>
-          <View style={styles.label}>
-            <Text style={{fontWeight: 700}}>Username:</Text>
-          </View>
-          <CustomTextInput
-            styles={styles.textInput}
-            onChangeText={setusername}
-            value={username}
-          />
-          <View style={styles.label}>
-            <Text style={{fontWeight: 700}}>Password:</Text>
-          </View>
-          <CustomTextInput
-            styles={styles.textInput}
-            secureTextEntry={true}
-            onChangeText={setpassword}
-          />
-          <Button
-            content="Quên mật khẩu ?"
-            btnstyle={styles.forgotPass}
-            btntextstyle={styles.forgotPasstext}
-            onPress={() => navigation.navigate('ForgetPassInput')}
-          />
-          <Button
-            content="ĐĂNG NHẬP"
-            btnstyle={styles.btnstyle}
-            btntextstyle={styles.btntextstyle}
-            onPress={() => navigation.navigate('Home')}
-          />
-          <View style={styles.RegNav}>
-            <Text style={{fontSize: 15}}>Bạn chưa có tài khoản ?</Text>
-            <Button
-              content=" Đăng kí"
-              btntextstyle={styles.RegNavtext}
-              onPress={() => {
-                navigation.navigate('Register');
-              }}
+      <CustomDialog visible={isloading} alerts={alerts} onClose={closeModal} />
+      <Image
+        style={styles.logo}
+        source={require('../../Assets/Image/logo.png')}
+        resizeMode="contain"
+      />
+      <KeyboardAvoidingView style={styles.formContainer} behavior="height">
+        <ScrollView>
+          <View style={{flexDirection: 'row'}}>
+            <Text style={styles.title}>ĐĂNG NHẬP</Text>
+            <ActivityIndicator
+              size="small"
+              color="#0f0856"
+              animating={isSpinning}
+              style={{marginLeft: 10}}
             />
           </View>
-        </KeyboardAvoidingView>
-      </View>
-      <Modal
-        transparent
-        animationType="fade"
-        visible={isloading}
-        onRequestClose={() => closeModal()}>
-        <View style={styles.modalBackground}>
-          <ActivityIndicator size="large" color="white" />
-        </View>
-      </Modal>
+          <View style={{flexDirection: 'row', marginTop: 5}}>
+            <Text>Bạn chưa có tài khoản ? </Text>
+            <Button
+              content="Đăng ký"
+              btntextstyle={{color: '#cc485e', fontWeight: 600}}
+              onPress={() => navigation.navigate('Register')}
+            />
+          </View>
+          <View style={styles.inputContainer}>
+            <Text style={styles.label}>Username</Text>
+            <CustomTextInput
+              styles={styles.textInput}
+              onChangeText={setusername}
+              value={username}
+            />
+            <Text style={styles.label}>Password</Text>
+            <CustomTextInput
+              styles={styles.textInput}
+              onChangeText={setpassword}
+              secureTextEntry={true}
+            />
+            <Button
+              content="Quên mật khẩu"
+              btnstyle={{alignSelf: 'flex-end'}}
+              btntextstyle={{color: '#6d6b74', fontWeight: '600'}}
+            />
+          </View>
+          <Button
+            content="ĐĂNG NHẬP"
+            btnstyle={styles.btnLogin}
+            btntextstyle={styles.btnLogintext}
+            onPress={doLogin}
+          />
+        </ScrollView>
+      </KeyboardAvoidingView>
     </SafeAreaView>
   );
 }
