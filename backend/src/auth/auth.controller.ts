@@ -4,7 +4,8 @@ import { UnauthorizedException } from '@nestjs/common';
 import { OtpService } from './otp.service';
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService, private readonly otpService: OtpService,) {}
+  constructor(private readonly authService: AuthService,
+    private readonly otpService: OtpService,) {}
 
   @Post('register')
   async register(
@@ -52,11 +53,46 @@ export class AuthController {
   @Post('send')
   async sendOtp(@Body() body: { phoneNumber: string }) {
     const { phoneNumber } = body;
-    const otpCode = await this.otpService.generateOtpCode(6); // Độ dài mã OTP
+    const otpCode = await this.otpService.generateOtpCode(6); 
     await this.otpService.sendOtpToPhone(phoneNumber, otpCode);
-
     return {
       message: 'OTP sent successfully',
     };
   }
+  @Post('verify-otp') // Đánh dấu là một endpoint xử lý yêu cầu POST
+  async verifyOtp(@Body() body: { phoneNumber: string; otp: string }) {
+    const { phoneNumber, otp } = body;
+
+    const isValid = await this.authService.verifyOtp(phoneNumber, otp);
+
+    if (isValid) {
+      return {
+        statusCode: 200,
+        message: 'OTP verified successfully',
+      };
+    } else {
+      return {
+        statusCode: 400,
+        message: 'Invalid OTP',
+      };
+    }
+  }
+
+
+@Post('reset-password')
+async resetPassword(@Body() body: { phoneNumber: string; newPassword: string }) {
+  const success = await this.authService.resetPassword(body.phoneNumber, body.newPassword);
+
+  if (success) {
+    return {
+      statusCode: 200,
+      message: 'Password reset successful',
+    };
+  } else {
+    return {
+      statusCode: 500,
+      message: 'Failed to reset password',
+    };
+  }
+}
 }

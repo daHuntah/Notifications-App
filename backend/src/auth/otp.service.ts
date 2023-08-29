@@ -6,11 +6,13 @@ export class OtpService {
   private twilioClient: Twilio;
 
   constructor() {
-    this.twilioClient = new Twilio('ACfe3d4792344ce6e3872638236cb84c5b', '253bad47024835dc075d95136db92e60');
+    this.twilioClient = new Twilio('ACd9f30ed1cbd7a882b82cf9ed5672fe9e', '64a016b180facf000c5464058b1d0312');
+    
   }
 
   async generateOtpCode(length: number): Promise<string> {
     const code = Math.floor(Math.random() * (10 ** length)).toString().padStart(length, '0');
+ 
     return code;
   }
 
@@ -18,7 +20,7 @@ export class OtpService {
     try {
       const message = await this.twilioClient.messages.create({
         body: `Your OTP code is: ${otpCode}`,
-        from: '+84816936978', // Twilio phone number
+        from: '+17076796458',
         to: phoneNumber,
       });
 

@@ -5,10 +5,10 @@ import * as bcrypt from 'bcrypt';
 import { JwtService } from '@nestjs/jwt';
 import { User, UserDocument } from './schemas/user.schema';
 import { UnauthorizedException } from '@nestjs/common';
-
+import { Otp, OtpDocument } from './schemas/otp.schema';
 @Injectable()
 export class AuthService {
-  constructor(@InjectModel(User.name) private userModel: Model<UserDocument>, private jwtService: JwtService,) {}
+  constructor(@InjectModel(User.name) private userModel: Model<UserDocument>, private jwtService: JwtService,@InjectModel(Otp.name) private otpModel: Model<OtpDocument>,) {}
   async register(
     username: string,
     password: string,
@@ -57,5 +57,29 @@ export class AuthService {
     return {
       accessToken: this.jwtService.sign(payload), 
     };
+  }
+
+  async verifyOtp(phoneNumber: string, otp: string): Promise<boolean> {
+    
+    const storedOtp = await this.otpModel.findOne({ phoneNumber });
+  
+    if (storedOtp && storedOtp.otp === otp) {
+      // Xóa mã OTP sau khi xác thực thành công
+      await this.otpModel.deleteOne({ phoneNumber });
+      return true;
+    }
+    return false;
+  }
+  
+  async resetPassword(phoneNumber: string, newPassword: string): Promise<boolean> {
+    const user = await this.userModel.findOne({ phoneNumber });
+  
+    if (user) {
+      const hashedPassword = await bcrypt.hash(newPassword, 10);
+      user.password = hashedPassword;
+      await user.save();
+      return true;
+    }
+    return false;
   }
 }
