@@ -6,6 +6,8 @@ import styles from './styles';
 import {Text} from 'react-native';
 
 function NotificationTab({navigation}) {
+  const respone;
+
   useEffect(() => {
     // Tạo kết nối WebSocket tới URL cụ thể
     const socket = new WebSocket('ws://18.166.15.69:3000');
@@ -18,6 +20,7 @@ function NotificationTab({navigation}) {
     // Xử lý sự kiện khi nhận tin nhắn từ máy chủ
     socket.onmessage = e => {
       console.log('Received message:', e.data);
+      respone = e.data;
     };
 
     // Xử lý sự kiện khi có lỗi
@@ -36,11 +39,23 @@ function NotificationTab({navigation}) {
     };
   }, []);
 
+  const render = ({item}) => {
+    return (
+      <View>
+        <Text>{item}</Text>
+      </View>
+    );
+  };
+
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.msgContainer}>
         <Text style={styles.title}>Thông báo</Text>
-        <FlatList />
+        <FlatList
+          data={respone}
+          keyExtractor={item => item.id}
+          renderItem={render}
+        />
       </View>
     </SafeAreaView>
   );
