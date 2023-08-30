@@ -111,17 +111,21 @@ function Login({navigation, route}) {
           </View>
           <View style={styles.inputContainer}>
             <Text style={styles.label}>Username</Text>
-            <CustomTextInput
-              styles={styles.textInput}
-              onChangeText={setusername}
-              value={username}
-            />
+            <View style={styles.iconInput}>
+              <CustomTextInput
+                styles={styles.textInput}
+                onChangeText={setusername}
+                value={username}
+              />
+            </View>
             <Text style={styles.label}>Password</Text>
-            <CustomTextInput
-              styles={styles.textInput}
-              onChangeText={setpassword}
-              secureTextEntry={true}
-            />
+            <View style={styles.iconInput}>
+              <CustomTextInput
+                styles={styles.textInput}
+                onChangeText={setpassword}
+                secureTextEntry={true}
+              />
+            </View>
             <Button
               content="Quên mật khẩu"
               btnstyle={{alignSelf: 'flex-end'}}

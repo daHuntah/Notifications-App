@@ -40,17 +40,23 @@ const styles = StyleSheet.create({
   label: {
     color: '#adb5c6',
   },
-  textInput: {
-    marginBottom: 10,
+  iconInput: {
+    flexDirection: 'row',
+    alignItems: 'center',
     borderBottomWidth: 1,
+    marginBottom: 10,
     borderBottomColor: '#342e9d',
+  },
+  textInput: {
+    width: '93%',
+    padding: 5,
   },
   btnLogin: {
     width: 300,
     height: 50,
     backgroundColor: '#342e9d',
     marginTop: 40,
-    marginBottom: 20,
+    marginBottom: 10,
     borderRadius: 20,
     justifyContent: 'center',
     alignItems: 'center',
