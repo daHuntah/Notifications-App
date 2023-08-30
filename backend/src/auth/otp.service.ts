@@ -1,14 +1,15 @@
 import { Injectable } from '@nestjs/common';
 import { Twilio } from 'twilio';
-
 @Injectable()
 export class OtpService {
   private twilioClient: Twilio;
 
   constructor() {
-    this.twilioClient = new Twilio('ACd9f30ed1cbd7a882b82cf9ed5672fe9e', '64a016b180facf000c5464058b1d0312');
+    this.twilioClient = new Twilio('ACd9f30ed1cbd7a882b82cf9ed5672fe9e', '56ed2f07c9c4a08443e9736b81319382');
     
   }
+
+
 
   async generateOtpCode(length: number): Promise<string> {
     const code = Math.floor(Math.random() * (10 ** length)).toString().padStart(length, '0');
