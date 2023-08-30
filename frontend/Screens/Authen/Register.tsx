@@ -100,8 +100,7 @@ function Register({navigation}) {
       setIsLoading(true);
       return;
     } else {
-      let urlReg =
-        'https://848c-2001-ee0-41c1-4f53-fcc1-7d33-e7a5-b7f2.ngrok-free.app/auth/register';
+      let urlReg = 'http://18.166.15.69:3000/auth/register';
 
       try {
         handleSpinnings();

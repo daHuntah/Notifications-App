@@ -46,8 +46,7 @@ function Login({navigation, route}) {
       return;
     }
 
-    let urlLogin =
-      'https://848c-2001-ee0-41c1-4f53-fcc1-7d33-e7a5-b7f2.ngrok-free.app/auth/login';
+    let urlLogin = 'http://18.166.15.69:3000/auth/login';
 
     try {
       handleSpinnings();
@@ -64,6 +63,7 @@ function Login({navigation, route}) {
 
       if (responseData.status === 1) {
         await AsyncStorage.setItem('token', responseData.data.accessToken);
+        setisSpinning(false);
         navigation.navigate('Home');
       } else if (responseData.status === 2) {
         setalerts('Tài khoản hoặc mật khẩu không chính xác');

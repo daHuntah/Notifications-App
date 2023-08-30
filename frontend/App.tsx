@@ -10,6 +10,7 @@ import Login from './Screens/Authen/Login';
 import Register from './Screens/Authen/Register';
 import ForgetPassInput from './Screens/Authen/ForgetPass/ForgetPassInput';
 import ForgetPassOTP from './Screens/Authen/ForgetPass/ForgetPassOTP';
+import ProfileTab from './Screens/Home/ProfileTab';
 const Stack = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
@@ -22,11 +23,15 @@ const HomeNavigator = () => {
 
           if (route.name === 'NotificationTab') {
             iconName = focused ? 'bell' : 'bell';
-            iconColor = focused ? '#793FDF' : 'black';
+            iconColor = focused ? '#342e9d' : 'black';
             iconSize = focused ? 30 : 20;
           } else if (route.name === 'NotificationHistoryTab') {
             iconName = focused ? 'history' : 'history';
-            iconColor = focused ? '#793FDF' : 'black';
+            iconColor = focused ? '#342e9d' : 'black';
+            iconSize = focused ? 30 : 20;
+          } else if (route.name === 'ProfileTab') {
+            iconName = focused ? 'person' : 'person';
+            iconColor = focused ? '#342e9d' : 'black';
             iconSize = focused ? 30 : 20;
           }
           return <Icon name={iconName} size={iconSize} color={iconColor} />;
@@ -43,6 +48,14 @@ const HomeNavigator = () => {
       <Tab.Screen
         name="NotificationHistoryTab"
         component={NotificationHistoryTab}
+        options={{
+          headerShown: false,
+          tabBarLabel: () => null,
+        }}
+      />
+      <Tab.Screen
+        name="ProfileTab"
+        component={ProfileTab}
         options={{
           headerShown: false,
           tabBarLabel: () => null,
