@@ -1,48 +1,53 @@
-import React, {useEffect} from 'react';
+import React, {useState, useEffect} from 'react';
 import {FlatList, View} from 'react-native';
 import Button from '../../Components/Button';
 import {SafeAreaView} from 'react-native';
 import styles from './styles';
 import {Text} from 'react-native';
+import {io} from 'socket.io-client'; // Import thư viện socket.io-client
+import Icon from 'react-native-vector-icons/Octicons';
 
 function NotificationTab({navigation}) {
-  const respone;
+  const [response, setResponse] = useState([]);
 
   useEffect(() => {
     // Tạo kết nối WebSocket tới URL cụ thể
-    const socket = new WebSocket('ws://18.166.15.69:3000');
+    const socket = io(
+      'wss://da26-2001-ee0-41c1-4f53-a1a0-3e9a-9c72-5d80.ngrok-free.app',
+    );
 
-    // Xử lý sự kiện khi kết nối mở
-    socket.onopen = () => {
-      console.log('WebSocket connection opened');
-    };
+    socket.on('connect', () => {
+      console.log('Connect');
+    });
 
     // Xử lý sự kiện khi nhận tin nhắn từ máy chủ
-    socket.onmessage = e => {
-      console.log('Received message:', e.data);
-      respone = e.data;
-    };
-
-    // Xử lý sự kiện khi có lỗi
-    socket.onerror = e => {
-      console.error('WebSocket error:', e.message);
-    };
-
-    // Xử lý sự kiện khi kết nối đóng
-    socket.onclose = e => {
-      console.log('WebSocket connection closed:', e.code, e.reason);
-    };
+    socket.on('onMessage', newData => {
+      setResponse(prevResponse => [...prevResponse, newData]);
+      console.log(newData);
+    });
 
     // Trả về một hàm để đóng kết nối khi component bị unmount
     return () => {
-      socket.close();
+      socket.disconnect();
     };
   }, []);
 
   const render = ({item}) => {
     return (
-      <View>
-        <Text>{item}</Text>
+      <View style={styles.itemContainer}>
+        <View style={{flexDirection: 'row'}}>
+          <Icon
+            name="dot"
+            size={20}
+            style={{marginTop: 9, marginRight: 10}}
+            color={'#8b9dc8'}
+          />
+          <View>
+            <Text style={styles.title}>{item.title}</Text>
+            <Text style={styles.status}>{item.status}</Text>
+            <Text style={styles.content}>" {item.content} "</Text>
+          </View>
+        </View>
       </View>
     );
   };
@@ -50,10 +55,10 @@ function NotificationTab({navigation}) {
   return (
     <SafeAreaView style={styles.container}>
       <View style={styles.msgContainer}>
-        <Text style={styles.title}>Thông báo</Text>
+        <Text style={styles.header}>Thông báo</Text>
         <FlatList
-          data={respone}
-          keyExtractor={item => item.id}
+          data={response}
+          keyExtractor={(item, index) => index.toString()}
           renderItem={render}
         />
       </View>

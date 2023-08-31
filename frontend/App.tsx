@@ -25,10 +25,6 @@ const HomeNavigator = () => {
             iconName = focused ? 'bell' : 'bell';
             iconColor = focused ? '#342e9d' : 'black';
             iconSize = focused ? 30 : 20;
-          } else if (route.name === 'NotificationHistoryTab') {
-            iconName = focused ? 'history' : 'history';
-            iconColor = focused ? '#342e9d' : 'black';
-            iconSize = focused ? 30 : 20;
           } else if (route.name === 'ProfileTab') {
             iconName = focused ? 'person' : 'person';
             iconColor = focused ? '#342e9d' : 'black';
@@ -40,14 +36,6 @@ const HomeNavigator = () => {
       <Tab.Screen
         name="NotificationTab"
         component={NotificationTab}
-        options={{
-          headerShown: false,
-          tabBarLabel: () => null,
-        }}
-      />
-      <Tab.Screen
-        name="NotificationHistoryTab"
-        component={NotificationHistoryTab}
         options={{
           headerShown: false,
           tabBarLabel: () => null,
