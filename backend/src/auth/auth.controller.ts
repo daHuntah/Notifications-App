@@ -1,7 +1,10 @@
-import { Controller, Post, Body } from '@nestjs/common';
+import { Controller, Post, Body, Req } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { UnauthorizedException } from '@nestjs/common';
 import { OtpService } from './otp.service';
+import { Request } from 'express';
+import * as jwt from 'jsonwebtoken';
+
 @Controller('auth')
 export class AuthController {
   constructor(private readonly authService: AuthService,
@@ -50,6 +53,40 @@ export class AuthController {
       throw error;
     }
   }
+
+  @Post('token')
+  authenticateToken(@Req() req: Request) {
+    //  xác thực token và xử lý logic xác thực
+   
+    const token = req.body.token; // Lấy token từ body của yêu cầu
+
+    if (!token) {
+      console.log('Token not provided');
+      return { status: 0,message: 'Unauthorized' };
+    }
+
+    try {
+      // Giải mã token và kiểm tra tính hợp lệ
+     
+      const decodedToken = jwt.verify(token, 'your_secret_key'); 
+      console.log('Authentication successful');
+      // Xác thực thành công, trả về thông tin người dùng hoặc phản hồi thành công
+      return {
+        status: 1,
+        message: 'OK',
+        user: decodedToken
+      };
+     
+    } catch (error) {
+      console.error('Authentication failed:', error);
+      // Xác thực không thành công, trả về phản hồi lỗi
+      return { 
+        status: 2,
+        message: 'Unauthorized' 
+      };
+    }
+  }
+
   @Post('send')
   async sendOtp(@Body() body: { phoneNumber: string }) {
     const { phoneNumber } = body;
@@ -59,7 +96,7 @@ export class AuthController {
       message: 'OTP sent successfully',
     };
   }
-  @Post('verify-otp') // Đánh dấu là một endpoint xử lý yêu cầu POST
+  @Post('verify-otp')
   async verifyOtp(@Body() body: { phoneNumber: string; otp: string }) {
     const { phoneNumber, otp } = body;
 

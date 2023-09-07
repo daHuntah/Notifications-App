@@ -59,6 +59,15 @@ export class AuthService {
     };
   }
 
+  async validateToken(token: string) {
+    try {
+      const payload = this.jwtService.verify(token);
+      return payload; // Trả về thông tin người dùng từ payload
+    } catch (error) {
+      throw new Error('Token validation failed');
+    }
+  }
+
   async verifyOtp(phoneNumber: string, otp: string): Promise<boolean> {
     
     const storedOtp = await this.otpModel.findOne({ phoneNumber });
