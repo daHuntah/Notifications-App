@@ -23,6 +23,8 @@ import {
 
 
 
+
+
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
 });
@@ -55,7 +57,7 @@ admin.initializeApp({
       });
     
       // Gửi thông báo FCM đến client cùng với dữ liệu từ thông báo `newNotification`
-      const registrationToken = 'dyGuLfPPRnqPJ9PpMkRdAG:APA91bEq8jN-T6DbvNTh5dNcGANbm4TCh6ozGyeFCaQDLrf8df18fQtePTHJHP2xfWoxnw299HY9Rvq6p7oV40nfh1W20vZaStx-zqmOR3S-_DY7AXZgP3jNPNMAwAv4o-VDSUuR_g5S'; //tokken cua thiet bi
+      const registrationToken = 'cphTQ1FxS9-K1V22Qoi3of:APA91bH-tBEfLogAx8Ib-JrTgO6Rf8m2BHNl_1RTD1v2h9H1MykU9NiKhWHaKzkf3b42oQrk89HOrdBORQrwGRCOC_VGx2b-IBicOs5T5lYPqrDzfjbZ2F5ySb-wNViTS-YDzLPv-vBR'; //tokken cua thiet bi
       const message: admin.messaging.Message = {
         notification: {
           title: body.title,

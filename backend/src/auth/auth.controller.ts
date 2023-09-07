@@ -7,8 +7,10 @@ import * as jwt from 'jsonwebtoken';
 
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService,
-    private readonly otpService: OtpService,) {}
+  constructor(
+    private readonly authService: AuthService,
+    private readonly otpService: OtpService,
+  ) {}
 
   @Post('register')
   async register(
@@ -57,32 +59,31 @@ export class AuthController {
   @Post('token')
   authenticateToken(@Req() req: Request) {
     //  xác thực token và xử lý logic xác thực
-   
+
     const token = req.body.token; // Lấy token từ body của yêu cầu
 
     if (!token) {
       console.log('Token not provided');
-      return { status: 0,message: 'Unauthorized' };
+      return { status: 0, message: 'Unauthorized' };
     }
 
     try {
       // Giải mã token và kiểm tra tính hợp lệ
-     
-      const decodedToken = jwt.verify(token, 'your_secret_key'); 
+
+      const decodedToken = jwt.verify(token, 'your_secret_key');
       console.log('Authentication successful');
       // Xác thực thành công, trả về thông tin người dùng hoặc phản hồi thành công
       return {
         status: 1,
         message: 'OK',
-        user: decodedToken
+        user: decodedToken,
       };
-     
     } catch (error) {
       console.error('Authentication failed:', error);
       // Xác thực không thành công, trả về phản hồi lỗi
-      return { 
+      return {
         status: 2,
-        message: 'Unauthorized' 
+        message: 'Unauthorized',
       };
     }
   }
@@ -90,7 +91,7 @@ export class AuthController {
   @Post('send')
   async sendOtp(@Body() body: { phoneNumber: string }) {
     const { phoneNumber } = body;
-    const otpCode = await this.otpService.generateOtpCode(6); 
+    const otpCode = await this.otpService.generateOtpCode(6);
     await this.otpService.sendOtpToPhone(phoneNumber, otpCode);
     return {
       message: 'OTP sent successfully',
@@ -115,21 +116,25 @@ export class AuthController {
     }
   }
 
+  @Post('reset-password')
+  async resetPassword(
+    @Body() body: { phoneNumber: string; newPassword: string },
+  ) {
+    const success = await this.authService.resetPassword(
+      body.phoneNumber,
+      body.newPassword,
+    );
 
-@Post('reset-password')
-async resetPassword(@Body() body: { phoneNumber: string; newPassword: string }) {
-  const success = await this.authService.resetPassword(body.phoneNumber, body.newPassword);
-
-  if (success) {
-    return {
-      statusCode: 200,
-      message: 'Password reset successful',
-    };
-  } else {
-    return {
-      statusCode: 500,
-      message: 'Failed to reset password',
-    };
+    if (success) {
+      return {
+        statusCode: 200,
+        message: 'Password reset successful',
+      };
+    } else {
+      return {
+        statusCode: 500,
+        message: 'Failed to reset password',
+      };
+    }
   }
-}
 }

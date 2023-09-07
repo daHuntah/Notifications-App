@@ -8,7 +8,11 @@ import { UnauthorizedException } from '@nestjs/common';
 import { Otp, OtpDocument } from './schemas/otp.schema';
 @Injectable()
 export class AuthService {
-  constructor(@InjectModel(User.name) private userModel: Model<UserDocument>, private jwtService: JwtService,@InjectModel(Otp.name) private otpModel: Model<OtpDocument>,) {}
+  constructor(
+    @InjectModel(User.name) private userModel: Model<UserDocument>,
+    private jwtService: JwtService,
+    @InjectModel(Otp.name) private otpModel: Model<OtpDocument>,
+  ) {}
   async register(
     username: string,
     password: string,
@@ -52,10 +56,10 @@ export class AuthService {
     if (!user || !(await bcrypt.compare(password, user.password))) {
       throw new UnauthorizedException('Invalid credentials');
     }
-  
+
     const payload = { username: user.username, sub: user._id };
     return {
-      accessToken: this.jwtService.sign(payload), 
+      accessToken: this.jwtService.sign(payload),
     };
   }
 
@@ -69,9 +73,8 @@ export class AuthService {
   }
 
   async verifyOtp(phoneNumber: string, otp: string): Promise<boolean> {
-    
     const storedOtp = await this.otpModel.findOne({ phoneNumber });
-  
+
     if (storedOtp && storedOtp.otp === otp) {
       // Xóa mã OTP sau khi xác thực thành công
       await this.otpModel.deleteOne({ phoneNumber });
@@ -79,10 +82,13 @@ export class AuthService {
     }
     return false;
   }
-  
-  async resetPassword(phoneNumber: string, newPassword: string): Promise<boolean> {
+
+  async resetPassword(
+    phoneNumber: string,
+    newPassword: string,
+  ): Promise<boolean> {
     const user = await this.userModel.findOne({ phoneNumber });
-  
+
     if (user) {
       const hashedPassword = await bcrypt.hash(newPassword, 10);
       user.password = hashedPassword;

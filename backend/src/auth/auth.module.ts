@@ -19,7 +19,7 @@ import { OtpService } from './otp.service';
       signOptions: { expiresIn: '1h' },
     }),
   ],
-  providers: [AuthService, OtpService], 
+  providers: [AuthService, OtpService],
   controllers: [AuthController],
 })
 export class AuthModule {}
