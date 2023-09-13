@@ -2,28 +2,27 @@ import {StyleSheet} from 'react-native';
 
 const styles = StyleSheet.create({
   container: {
-    height: '100%',
-    backgroundColor: '#7297d4',
-  },
-  msgContainer: {
-    backgroundColor: '#fbfcfd',
-    width: '95%',
-    height: '100%',
-    alignSelf: 'center',
-    borderRadius: 15,
-    padding: 20,
-    marginTop: 30,
+    flex: 1,
+    backgroundColor: 'rgba(0,0,0,0.03)',
   },
   header: {
     fontWeight: 'bold',
     color: '#342e9d',
-    fontSize: 26,
-    marginBottom: 30,
+    fontSize: 35,
+    flex: 7,
   },
-  itemContainer: {
-    marginBottom: 25,
+  item: {
+    width: '92%',
+    padding: 10,
+    margin: '2%',
+    alignSelf: 'center',
+    backgroundColor: 'white',
+    borderRadius: 10,
+    shadowOpacity: 0.08,
+    shadowOffset: {width: 0, height: 20},
+    shadowRadius: 10,
+    elevation: 5,
   },
-
   title: {
     color: '#CC485e',
     fontWeight: 'bold',
@@ -37,6 +36,27 @@ const styles = StyleSheet.create({
   content: {
     fontSize: 14,
   },
+  avt: {
+    width: 80,
+    height: 80,
+    borderRadius: 10,
+  },
+  headerContainer: {
+    width: '100%',
+    height: 150,
+    alignItems: 'center',
+    justifyContent: 'center',
+    padding: 15,
+  },
+  line: {
+    width: '100%',
+    borderBottomWidth: 2,
+    borderColor: '#342e9d',
+  },
+  funcBtn: {
+    backgroundColor: 'white',
+  },
+  funcBtnText: {},
 });
 
 export default styles;

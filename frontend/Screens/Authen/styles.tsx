@@ -52,7 +52,7 @@ const styles = StyleSheet.create({
     padding: 5,
   },
   btnLogin: {
-    width: 300,
+    width: '100%',
     height: 50,
     backgroundColor: '#342e9d',
     marginTop: 40,
@@ -68,6 +68,34 @@ const styles = StyleSheet.create({
   },
   btnLogintext: {
     fontSize: 18,
+    color: '#fbfcfd',
+  },
+  btnnotifer: {
+    width: 300,
+    height: 50,
+    backgroundColor: '#342e9d',
+    marginTop: 40,
+    marginBottom: 10,
+    borderRadius: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    elevation: 6,
+    shadowColor: '#7297d4',
+    shadowOffset: {width: 0, height: 4},
+    shadowOpacity: 0.5,
+    shadowRadius: 6,
+  },
+  btncheckper: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    alignSelf: 'center',
+    marginBottom: 10,
+    borderRadius: 20,
+    width: '80%',
+    height: 50,
+    backgroundColor: '#342e9d',
+  },
+  btncheckpertxt: {
     color: '#fbfcfd',
   },
 });

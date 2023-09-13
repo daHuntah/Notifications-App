@@ -1,32 +1,58 @@
 import React, {useState, useEffect} from 'react';
-import {FlatList, View} from 'react-native';
-import Button from '../../Components/Button';
+import {FlatList, RefreshControl, View} from 'react-native';
 import {SafeAreaView} from 'react-native';
 import styles from './styles';
 import {Text} from 'react-native';
 import {io} from 'socket.io-client'; // Import thư viện socket.io-client
 import Icon from 'react-native-vector-icons/Octicons';
-
 function NotificationTab({navigation}) {
   const [response, setResponse] = useState([]);
+  const [refreshing, setRefreshing] = useState(false);
+
+  const getList = async () => {
+    let urlGetList = 'http://18.166.15.69:3000/notifications';
+
+    const response1 = await fetch(urlGetList, {
+      method: 'GET',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(response1),
+    });
+
+    const responseData = await response1.json();
+    const reversedData = responseData.slice().reverse();
+
+    setResponse(reversedData);
+  };
+
+  const onRefresh = () => {
+    setRefreshing(true);
+    try {
+      getList().then(() => {
+        setRefreshing(false);
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
-    // Tạo kết nối WebSocket tới URL cụ thể
-    const socket = io(
-      'wss://da26-2001-ee0-41c1-4f53-a1a0-3e9a-9c72-5d80.ngrok-free.app',
-    );
+    getList();
+  }, []);
+
+  useEffect(() => {
+    const socket = io('ws://18.166.15.69:3000');
 
     socket.on('connect', () => {
       console.log('Connect');
     });
 
     // Xử lý sự kiện khi nhận tin nhắn từ máy chủ
-    socket.on('onMessage', newData => {
-      setResponse(prevResponse => [...prevResponse, newData]);
-      console.log(newData);
+    socket.on('onNotification', newData => {
+      setResponse(prevResponse => [newData, ...prevResponse]);
     });
 
-    // Trả về một hàm để đóng kết nối khi component bị unmount
     return () => {
       socket.disconnect();
     };
@@ -34,34 +60,35 @@ function NotificationTab({navigation}) {
 
   const render = ({item}) => {
     return (
-      <View style={styles.itemContainer}>
-        <View style={{flexDirection: 'row'}}>
-          <Icon
-            name="dot"
-            size={20}
-            style={{marginTop: 9, marginRight: 10}}
-            color={'#8b9dc8'}
-          />
-          <View>
-            <Text style={styles.title}>{item.title}</Text>
-            <Text style={styles.status}>{item.status}</Text>
-            <Text style={styles.content}>" {item.content} "</Text>
-          </View>
-        </View>
+      <View style={styles.item}>
+        <Text style={styles.title}>{item.title}</Text>
+        <Text style={styles.status}>{item.status}</Text>
+        <Text style={styles.content}>" {item.content} "</Text>
       </View>
     );
   };
 
   return (
     <SafeAreaView style={styles.container}>
-      <View style={styles.msgContainer}>
+      <View style={{flexDirection: 'row', padding: 20, alignItems: 'center'}}>
         <Text style={styles.header}>Thông báo</Text>
-        <FlatList
-          data={response}
-          keyExtractor={(item, index) => index.toString()}
-          renderItem={render}
+        <Icon
+          name="feed-person"
+          size={40}
+          style={{flex: 1}}
+          color="#342e9d"
+          onPress={() => navigation.navigate('ProfileTab')}
         />
       </View>
+      <FlatList
+        data={response}
+        keyExtractor={(item, index) => index.toString()}
+        renderItem={render}
+        showsVerticalScrollIndicator={false}
+        refreshControl={
+          <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+        }
+      />
     </SafeAreaView>
   );
 }

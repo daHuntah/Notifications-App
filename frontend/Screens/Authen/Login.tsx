@@ -5,7 +5,6 @@ import {
   Text,
   View,
   ActivityIndicator,
-  Modal,
   KeyboardAvoidingView,
   ScrollView,
 } from 'react-native';
@@ -14,6 +13,11 @@ import styles from './styles';
 import CustomTextInput from '../../Components/TextInput';
 import Button from '../../Components/Button';
 import CustomDialog from '../../Components/CustomDialog';
+import {LogBox} from 'react-native';
+
+LogBox.ignoreLogs([
+  'Non-serializable values were found in the navigation state',
+]);
 
 function Login({navigation, route}) {
   const [alerts, setalerts] = useState('');
@@ -63,8 +67,9 @@ function Login({navigation, route}) {
 
       if (responseData.status === 1) {
         await AsyncStorage.setItem('token', responseData.data.accessToken);
+        route.params.setnav(true);
         setisSpinning(false);
-        navigation.navigate('Home');
+        setpassword('');
       } else if (responseData.status === 2) {
         setalerts('Tài khoản hoặc mật khẩu không chính xác');
         setisloading(true);
@@ -91,7 +96,7 @@ function Login({navigation, route}) {
         resizeMode="contain"
       />
       <KeyboardAvoidingView style={styles.formContainer} behavior="height">
-        <ScrollView>
+        <ScrollView showsVerticalScrollIndicator={false}>
           <View style={{flexDirection: 'row'}}>
             <Text style={styles.title}>ĐĂNG NHẬP</Text>
             <ActivityIndicator
@@ -123,6 +128,7 @@ function Login({navigation, route}) {
               <CustomTextInput
                 styles={styles.textInput}
                 onChangeText={setpassword}
+                value={password}
                 secureTextEntry={true}
               />
             </View>
