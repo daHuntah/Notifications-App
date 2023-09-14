@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "217456798304",
+    "firebase_url": "https://app-thong-bao-426dc-default-rtdb.firebaseio.com",
+    "project_id": "app-thong-bao-426dc",
+    "storage_bucket": "app-thong-bao-426dc.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:217456798304:android:f03a37349a1a23c9483105",
+        "android_client_info": {
+          "package_name": "com.frontend"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "217456798304-43gqkkuj7fe200m5rocfqp9g7e6ej0at.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBqVMFIEH26UvNu3bm65TwPNvdnfaZcqzU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "217456798304-43gqkkuj7fe200m5rocfqp9g7e6ej0at.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

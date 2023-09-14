@@ -143,7 +143,7 @@ function Register({navigation}) {
         resizeMode="contain"
       />
       <KeyboardAvoidingView style={styles.formContainer} behavior="height">
-        <ScrollView>
+        <ScrollView showsVerticalScrollIndicator={false}>
           <View style={{flexDirection: 'row'}}>
             <Text style={styles.title}>ĐĂNG KÝ</Text>
             <ActivityIndicator
