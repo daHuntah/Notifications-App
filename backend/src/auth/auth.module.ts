@@ -15,8 +15,8 @@ import { OtpService } from './otp.service';
     ]),
     PassportModule,
     JwtModule.register({
-      secret: 'your_secret_key',
-      signOptions: { expiresIn: '1h' },
+      secret: '270803th',
+      signOptions: { expiresIn: '7d' },
     }),
   ],
   providers: [AuthService, OtpService],
