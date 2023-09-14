@@ -47,7 +47,7 @@ admin.initializeApp({
       });
     
       // Gửi thông báo FCM đến client cùng với dữ liệu từ thông báo `newNotification`
-      const registrationToken = 'cIOuMhCDRaaKWXlxFjHyhd:APA91bFiYQJR17-adsI_erEb4crYm3phV2cIr1B-PtH1viI8_Z5L2TmpEmke41xO3E0h7zkWviyNSi_HrDNt7D7SyE9DXOQAMd4Mmm-V_pZIDmdNBu4cOzpQ1VGmng6Ljdc0GkW5vCR5'; //tokken cua thiet bi
+      const registrationToken = 'fwOI1dbMRjudF5SddZOWIu:APA91bEzuHYobpowTv0HHICa76UvOn1UH7O5ajiGHwOZqWe16laexb-5CIFC8LSMeJ0i9EhDCD_hKGftC97y_wgO_rLXJTGUQH8QyECNLaUdLn8zeo4Q8EaWTMffcfYot5ATG_6INbZu'; //tokken cua thiet bi
       const message: admin.messaging.Message = {
         notification: {
           title: body.title,
